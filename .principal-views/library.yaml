@@ -1,0 +1,60 @@
+version: "1.0.0"
+name: "Agent Mail Core - Component Library"
+
+nodeComponents:
+  entry_point:
+    defaultLabel: "Entry Point"
+    description: "Environment-specific module entry points"
+    color: "#9b59b6"
+    shape: "rectangle"
+
+  adapter_layer:
+    defaultLabel: "Adapter Layer"
+    description: "Platform-specific implementations of abstractions"
+    color: "#27ae60"
+    shape: "rectangle"
+
+  abstraction:
+    defaultLabel: "Abstraction"
+    description: "Interface contracts for dependency injection"
+    color: "#1abc9c"
+    shape: "hexagon"
+
+  core_class:
+    defaultLabel: "Core Class"
+    description: "Main library class with constructor injection"
+    color: "#e74c3c"
+    shape: "rectangle"
+
+  domain:
+    defaultLabel: "Domain"
+    description: "Pure domain logic with no platform dependencies"
+    color: "#f39c12"
+    shape: "rectangle"
+
+  implementation:
+    defaultLabel: "Implementation"
+    description: "Concrete technology implementations"
+    color: "#3498db"
+    shape: "circle"
+
+edgeComponents:
+  export:
+    label: "Export"
+    description: "Module exports relationship"
+    color: "#9b59b6"
+
+  implements:
+    label: "Implements"
+    description: "Adapter implements abstraction interface"
+    color: "#1abc9c"
+
+  dependency_injection:
+    label: "Dependency Injection"
+    description: "Abstraction injected via constructor"
+    color: "#e74c3c"
+
+  uses:
+    label: "Uses"
+    description: "Component uses another component"
+    color: "#f39c12"

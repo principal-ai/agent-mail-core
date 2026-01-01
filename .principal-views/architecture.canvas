@@ -1,0 +1,490 @@
+{
+  "pv": {
+    "name": "Agent Mail Core - DI Architecture",
+    "version": "1.0.0"
+  },
+  "nodes": [
+    {
+      "id": "entry_universal",
+      "type": "rectangle",
+      "x": 300,
+      "y": 50,
+      "width": 120,
+      "height": 60,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "entry_point",
+        "shape": "rectangle",
+        "description": "index.ts - Universal exports"
+      }
+    },
+    {
+      "id": "entry_node",
+      "type": "rectangle",
+      "x": 450,
+      "y": 50,
+      "width": 120,
+      "height": 60,
+      "color": "#27ae60",
+      "pv": {
+        "nodeType": "entry_point",
+        "shape": "rectangle",
+        "description": "node.ts - Node.js entry point"
+      }
+    },
+    {
+      "id": "entry_browser",
+      "type": "rectangle",
+      "x": 600,
+      "y": 50,
+      "width": 120,
+      "height": 60,
+      "color": "#3498db",
+      "pv": {
+        "nodeType": "entry_point",
+        "shape": "rectangle",
+        "description": "browser.ts - Browser entry point"
+      }
+    },
+    {
+      "id": "node_adapters",
+      "type": "rectangle",
+      "x": 100,
+      "y": 180,
+      "width": 160,
+      "height": 100,
+      "color": "#27ae60",
+      "pv": {
+        "nodeType": "adapter_layer",
+        "shape": "rectangle",
+        "description": "Node.js Adapters: better-sqlite3, fs, proper-lockfile, fast-glob"
+      }
+    },
+    {
+      "id": "browser_adapters",
+      "type": "rectangle",
+      "x": 300,
+      "y": 180,
+      "width": 160,
+      "height": 100,
+      "color": "#3498db",
+      "pv": {
+        "nodeType": "adapter_layer",
+        "shape": "rectangle",
+        "description": "Browser Adapters: sql.js, IndexedDB, navigator.locks, micromatch"
+      }
+    },
+    {
+      "id": "test_adapters",
+      "type": "rectangle",
+      "x": 500,
+      "y": 180,
+      "width": 160,
+      "height": 100,
+      "color": "#e74c3c",
+      "pv": {
+        "nodeType": "adapter_layer",
+        "shape": "rectangle",
+        "description": "Test Adapters: In-memory mocks for unit testing"
+      }
+    },
+    {
+      "id": "database_adapter",
+      "type": "hexagon",
+      "x": 100,
+      "y": 350,
+      "width": 140,
+      "height": 70,
+      "color": "#1abc9c",
+      "pv": {
+        "nodeType": "abstraction",
+        "shape": "hexagon",
+        "description": "DatabaseAdapter interface: run, get, all, transaction"
+      }
+    },
+    {
+      "id": "storage_adapter",
+      "type": "hexagon",
+      "x": 260,
+      "y": 350,
+      "width": 140,
+      "height": 70,
+      "color": "#1abc9c",
+      "pv": {
+        "nodeType": "abstraction",
+        "shape": "hexagon",
+        "description": "StorageAdapter interface: readFile, writeFile, git ops"
+      }
+    },
+    {
+      "id": "lock_adapter",
+      "type": "hexagon",
+      "x": 420,
+      "y": 350,
+      "width": 140,
+      "height": 70,
+      "color": "#1abc9c",
+      "pv": {
+        "nodeType": "abstraction",
+        "shape": "hexagon",
+        "description": "LockAdapter interface: acquire, release, isLocked"
+      }
+    },
+    {
+      "id": "glob_adapter",
+      "type": "hexagon",
+      "x": 580,
+      "y": 350,
+      "width": 140,
+      "height": 70,
+      "color": "#1abc9c",
+      "pv": {
+        "nodeType": "abstraction",
+        "shape": "hexagon",
+        "description": "GlobAdapter interface: findFiles, matches"
+      }
+    },
+    {
+      "id": "agent_mail_core",
+      "type": "rectangle",
+      "x": 300,
+      "y": 480,
+      "width": 200,
+      "height": 80,
+      "color": "#e74c3c",
+      "pv": {
+        "nodeType": "core_class",
+        "shape": "rectangle",
+        "description": "AgentMailCore: Main class with constructor injection"
+      }
+    },
+    {
+      "id": "models",
+      "type": "rectangle",
+      "x": 100,
+      "y": 620,
+      "width": 120,
+      "height": 60,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "domain",
+        "shape": "rectangle",
+        "description": "Models: Project, Agent, Message, FileReservation"
+      }
+    },
+    {
+      "id": "operations",
+      "type": "rectangle",
+      "x": 250,
+      "y": 620,
+      "width": 120,
+      "height": 60,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "domain",
+        "shape": "rectangle",
+        "description": "Operations: send, receive, reserve, contact"
+      }
+    },
+    {
+      "id": "types",
+      "type": "rectangle",
+      "x": 400,
+      "y": 620,
+      "width": 120,
+      "height": 60,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "domain",
+        "shape": "rectangle",
+        "description": "Types: Config, enums, shared interfaces"
+      }
+    },
+    {
+      "id": "validation",
+      "type": "rectangle",
+      "x": 550,
+      "y": 620,
+      "width": 120,
+      "height": 60,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "domain",
+        "shape": "rectangle",
+        "description": "Validation: Agent names, patterns, input"
+      }
+    },
+    {
+      "id": "better_sqlite3",
+      "type": "circle",
+      "x": 50,
+      "y": 180,
+      "width": 40,
+      "height": 40,
+      "color": "#27ae60",
+      "pv": {
+        "nodeType": "implementation",
+        "shape": "circle",
+        "description": "better-sqlite3"
+      }
+    },
+    {
+      "id": "sql_js",
+      "type": "circle",
+      "x": 250,
+      "y": 180,
+      "width": 40,
+      "height": 40,
+      "color": "#3498db",
+      "pv": {
+        "nodeType": "implementation",
+        "shape": "circle",
+        "description": "sql.js WASM"
+      }
+    },
+    {
+      "id": "in_memory",
+      "type": "circle",
+      "x": 450,
+      "y": 180,
+      "width": 40,
+      "height": 40,
+      "color": "#e74c3c",
+      "pv": {
+        "nodeType": "implementation",
+        "shape": "circle",
+        "description": "In-memory Map"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "entry_node_to_node_adapters",
+      "fromNode": "entry_node",
+      "toNode": "node_adapters",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "exports",
+      "color": "#27ae60",
+      "pv": {
+        "edgeType": "export"
+      }
+    },
+    {
+      "id": "entry_browser_to_browser_adapters",
+      "fromNode": "entry_browser",
+      "toNode": "browser_adapters",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "exports",
+      "color": "#3498db",
+      "pv": {
+        "edgeType": "export"
+      }
+    },
+    {
+      "id": "entry_universal_to_test_adapters",
+      "fromNode": "entry_universal",
+      "toNode": "test_adapters",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "exports",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "export"
+      }
+    },
+    {
+      "id": "node_adapters_to_database",
+      "fromNode": "node_adapters",
+      "toNode": "database_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "node_adapters_to_storage",
+      "fromNode": "node_adapters",
+      "toNode": "storage_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "browser_adapters_to_database",
+      "fromNode": "browser_adapters",
+      "toNode": "database_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "browser_adapters_to_storage",
+      "fromNode": "browser_adapters",
+      "toNode": "storage_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "browser_adapters_to_lock",
+      "fromNode": "browser_adapters",
+      "toNode": "lock_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "browser_adapters_to_glob",
+      "fromNode": "browser_adapters",
+      "toNode": "glob_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "test_adapters_to_lock",
+      "fromNode": "test_adapters",
+      "toNode": "lock_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "test_adapters_to_glob",
+      "fromNode": "test_adapters",
+      "toNode": "glob_adapter",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "implements",
+      "color": "#1abc9c",
+      "pv": {
+        "edgeType": "implements"
+      }
+    },
+    {
+      "id": "database_to_core",
+      "fromNode": "database_adapter",
+      "toNode": "agent_mail_core",
+      "fromSide": "bottom",
+      "toSide": "left",
+      "label": "injected",
+      "color": "#e74c3c",
+      "pv": {
+        "edgeType": "dependency_injection"
+      }
+    },
+    {
+      "id": "storage_to_core",
+      "fromNode": "storage_adapter",
+      "toNode": "agent_mail_core",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "injected",
+      "color": "#e74c3c",
+      "pv": {
+        "edgeType": "dependency_injection"
+      }
+    },
+    {
+      "id": "lock_to_core",
+      "fromNode": "lock_adapter",
+      "toNode": "agent_mail_core",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "injected",
+      "color": "#e74c3c",
+      "pv": {
+        "edgeType": "dependency_injection"
+      }
+    },
+    {
+      "id": "glob_to_core",
+      "fromNode": "glob_adapter",
+      "toNode": "agent_mail_core",
+      "fromSide": "bottom",
+      "toSide": "right",
+      "label": "injected",
+      "color": "#e74c3c",
+      "pv": {
+        "edgeType": "dependency_injection"
+      }
+    },
+    {
+      "id": "core_to_models",
+      "fromNode": "agent_mail_core",
+      "toNode": "models",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "uses",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "uses"
+      }
+    },
+    {
+      "id": "core_to_operations",
+      "fromNode": "agent_mail_core",
+      "toNode": "operations",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "uses",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "uses"
+      }
+    },
+    {
+      "id": "core_to_types",
+      "fromNode": "agent_mail_core",
+      "toNode": "types",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "uses",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "uses"
+      }
+    },
+    {
+      "id": "core_to_validation",
+      "fromNode": "agent_mail_core",
+      "toNode": "validation",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "uses",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "uses"
+      }
+    }
+  ]
+}
