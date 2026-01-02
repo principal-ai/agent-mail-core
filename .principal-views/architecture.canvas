@@ -1,14 +1,60 @@
 {
   "pv": {
     "name": "Agent Mail Core - DI Architecture",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "nodeTypes": {
+      "entry_point": {
+        "description": "Entry point files for different environments",
+        "color": "#9b59b6",
+        "shape": "rectangle"
+      },
+      "adapter_layer": {
+        "description": "Platform-specific adapter implementations",
+        "color": "#27ae60",
+        "shape": "rectangle"
+      },
+      "abstraction": {
+        "description": "Abstract interfaces for dependency injection",
+        "color": "#1abc9c",
+        "shape": "hexagon"
+      },
+      "core_class": {
+        "description": "Core application classes",
+        "color": "#e74c3c",
+        "shape": "rectangle"
+      },
+      "domain": {
+        "description": "Domain models and operations",
+        "color": "#f39c12",
+        "shape": "rectangle"
+      }
+    },
+    "edgeTypes": {
+      "export": {
+        "style": "solid",
+        "directed": true
+      },
+      "implements": {
+        "style": "dashed",
+        "directed": true
+      },
+      "dependency_injection": {
+        "style": "solid",
+        "directed": true
+      },
+      "uses": {
+        "style": "solid",
+        "directed": true
+      }
+    }
   },
   "nodes": [
     {
       "id": "index.ts",
-      "type": "rectangle",
-      "x": 300,
-      "y": 50,
+      "type": "text",
+      "text": "index.ts",
+      "x": 519,
+      "y": 47,
       "width": 120,
       "height": 60,
       "color": "#9b59b6",
@@ -20,8 +66,9 @@
     },
     {
       "id": "node.ts",
-      "type": "rectangle",
-      "x": 450,
+      "type": "text",
+      "text": "node.ts",
+      "x": 120,
       "y": 50,
       "width": 120,
       "height": 60,
@@ -34,9 +81,10 @@
     },
     {
       "id": "browser.ts",
-      "type": "rectangle",
-      "x": 600,
-      "y": 50,
+      "type": "text",
+      "text": "browser.ts",
+      "x": 321,
+      "y": 47,
       "width": 120,
       "height": 60,
       "color": "#3498db",
@@ -48,7 +96,8 @@
     },
     {
       "id": "Node.js Adapters",
-      "type": "rectangle",
+      "type": "text",
+      "text": "Node.js Adapters",
       "x": 100,
       "y": 180,
       "width": 160,
@@ -62,7 +111,8 @@
     },
     {
       "id": "Browser Adapters",
-      "type": "rectangle",
+      "type": "text",
+      "text": "Browser Adapters",
       "x": 300,
       "y": 180,
       "width": 160,
@@ -76,7 +126,8 @@
     },
     {
       "id": "Test Adapters",
-      "type": "rectangle",
+      "type": "text",
+      "text": "Test Adapters",
       "x": 500,
       "y": 180,
       "width": 160,
@@ -90,7 +141,8 @@
     },
     {
       "id": "DatabaseAdapter",
-      "type": "hexagon",
+      "type": "text",
+      "text": "DatabaseAdapter",
       "x": 100,
       "y": 350,
       "width": 140,
@@ -104,7 +156,8 @@
     },
     {
       "id": "StorageAdapter",
-      "type": "hexagon",
+      "type": "text",
+      "text": "StorageAdapter",
       "x": 260,
       "y": 350,
       "width": 140,
@@ -118,7 +171,8 @@
     },
     {
       "id": "LockAdapter",
-      "type": "hexagon",
+      "type": "text",
+      "text": "LockAdapter",
       "x": 420,
       "y": 350,
       "width": 140,
@@ -132,7 +186,8 @@
     },
     {
       "id": "GlobAdapter",
-      "type": "hexagon",
+      "type": "text",
+      "text": "GlobAdapter",
       "x": 580,
       "y": 350,
       "width": 140,
@@ -146,7 +201,8 @@
     },
     {
       "id": "AgentMailCore",
-      "type": "rectangle",
+      "type": "text",
+      "text": "AgentMailCore",
       "x": 300,
       "y": 480,
       "width": 200,
@@ -160,7 +216,8 @@
     },
     {
       "id": "Models",
-      "type": "rectangle",
+      "type": "text",
+      "text": "Models",
       "x": 100,
       "y": 620,
       "width": 120,
@@ -174,7 +231,8 @@
     },
     {
       "id": "Operations",
-      "type": "rectangle",
+      "type": "text",
+      "text": "Operations",
       "x": 250,
       "y": 620,
       "width": 120,
@@ -188,7 +246,8 @@
     },
     {
       "id": "Types",
-      "type": "rectangle",
+      "type": "text",
+      "text": "Types",
       "x": 400,
       "y": 620,
       "width": 120,
@@ -202,7 +261,8 @@
     },
     {
       "id": "Validation",
-      "type": "rectangle",
+      "type": "text",
+      "text": "Validation",
       "x": 550,
       "y": 620,
       "width": 120,
