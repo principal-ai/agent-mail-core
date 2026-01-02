@@ -1,0 +1,585 @@
+{
+  "pv": {
+    "name": "Agent Mail - Operational Flow",
+    "version": "1.0.0",
+    "nodeTypes": {
+      "agent": {
+        "description": "Coding agents (Claude Code, Codex, etc.)",
+        "color": "#3498db",
+        "shape": "rectangle"
+      },
+      "operation": {
+        "description": "Core operations/tools",
+        "color": "#9b59b6",
+        "shape": "rectangle"
+      },
+      "data": {
+        "description": "Data entities",
+        "color": "#f39c12",
+        "shape": "rectangle"
+      },
+      "storage": {
+        "description": "Storage backends",
+        "color": "#27ae60",
+        "shape": "rectangle"
+      },
+      "policy": {
+        "description": "Policies and rules",
+        "color": "#e74c3c",
+        "shape": "hexagon"
+      }
+    },
+    "edgeTypes": {
+      "calls": {
+        "style": "solid",
+        "directed": true
+      },
+      "produces": {
+        "style": "solid",
+        "directed": true
+      },
+      "reads": {
+        "style": "dashed",
+        "directed": true
+      },
+      "enforces": {
+        "style": "dotted",
+        "directed": true
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": "AgentA",
+      "type": "text",
+      "text": "Agent A\n(GreenCastle)",
+      "x": -68,
+      "y": 39,
+      "width": 140,
+      "height": 70,
+      "color": "#3498db",
+      "pv": {
+        "nodeType": "agent",
+        "description": "First coding agent in project"
+      }
+    },
+    {
+      "id": "AgentB",
+      "type": "text",
+      "text": "Agent B\n(BlueLake)",
+      "x": 522,
+      "y": 43,
+      "width": 140,
+      "height": 70,
+      "color": "#3498db",
+      "pv": {
+        "nodeType": "agent",
+        "description": "Second coding agent in project"
+      }
+    },
+    {
+      "id": "AgentC",
+      "type": "text",
+      "text": "Agent C\n(RedFox)",
+      "x": 863,
+      "y": 41,
+      "width": 140,
+      "height": 70,
+      "color": "#3498db",
+      "pv": {
+        "nodeType": "agent",
+        "description": "Agent in different project"
+      }
+    },
+    {
+      "id": "register_agent",
+      "type": "text",
+      "text": "register_agent",
+      "x": -165,
+      "y": 179,
+      "width": 140,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Register agent identity with project"
+      }
+    },
+    {
+      "id": "send_message",
+      "type": "text",
+      "text": "send_message",
+      "x": 239,
+      "y": 177,
+      "width": 140,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Send message to recipients"
+      }
+    },
+    {
+      "id": "fetch_inbox",
+      "type": "text",
+      "text": "fetch_inbox",
+      "x": 423,
+      "y": 177,
+      "width": 140,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Check for new messages"
+      }
+    },
+    {
+      "id": "acknowledge",
+      "type": "text",
+      "text": "acknowledge_message",
+      "x": 633,
+      "y": 176,
+      "width": 183,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Confirm message receipt"
+      }
+    },
+    {
+      "id": "reserve_files",
+      "type": "text",
+      "text": "file_reservation_paths",
+      "x": -5,
+      "y": 177,
+      "width": 219,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Claim files for editing"
+      }
+    },
+    {
+      "id": "release_files",
+      "type": "text",
+      "text": "release_file_reservations",
+      "x": -415,
+      "y": 180,
+      "width": 228,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Release file claims"
+      }
+    },
+    {
+      "id": "request_contact",
+      "type": "text",
+      "text": "request_contact",
+      "x": 518,
+      "y": 280,
+      "width": 150,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Request cross-project link"
+      }
+    },
+    {
+      "id": "respond_contact",
+      "type": "text",
+      "text": "respond_contact",
+      "x": 782,
+      "y": 273,
+      "width": 150,
+      "height": 50,
+      "color": "#9b59b6",
+      "pv": {
+        "nodeType": "operation",
+        "description": "Approve/block contact"
+      }
+    },
+    {
+      "id": "Agent",
+      "type": "text",
+      "text": "Agent\nname, program, model\ntask_description",
+      "x": 80,
+      "y": 400,
+      "width": 150,
+      "height": 80,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "data",
+        "description": "Agent identity record"
+      }
+    },
+    {
+      "id": "Message",
+      "type": "text",
+      "text": "Message\nsubject, body_md\nthread_id, importance",
+      "x": 260,
+      "y": 400,
+      "width": 170,
+      "height": 80,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "data",
+        "description": "Message with threading"
+      }
+    },
+    {
+      "id": "FileReservation",
+      "type": "text",
+      "text": "FileReservation\npath_pattern, exclusive\nexpires_ts, reason",
+      "x": 460,
+      "y": 400,
+      "width": 180,
+      "height": 80,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "data",
+        "description": "File lease record"
+      }
+    },
+    {
+      "id": "AgentLink",
+      "type": "text",
+      "text": "AgentLink\nstatus: pending/\napproved/blocked",
+      "x": 670,
+      "y": 400,
+      "width": 150,
+      "height": 80,
+      "color": "#f39c12",
+      "pv": {
+        "nodeType": "data",
+        "description": "Cross-project contact"
+      }
+    },
+    {
+      "id": "ContactPolicy",
+      "type": "text",
+      "text": "Contact Policy\nopen | auto |\ncontacts_only | block_all",
+      "x": 670,
+      "y": 520,
+      "width": 150,
+      "height": 80,
+      "color": "#e74c3c",
+      "pv": {
+        "nodeType": "policy",
+        "description": "Per-agent contact rules"
+      }
+    },
+    {
+      "id": "ExclusiveLock",
+      "type": "text",
+      "text": "Exclusive Lock\nBlocks other agents",
+      "x": 476,
+      "y": 548,
+      "width": 150,
+      "height": 60,
+      "color": "#e74c3c",
+      "pv": {
+        "nodeType": "policy",
+        "description": "Hard lock enforcement"
+      }
+    },
+    {
+      "id": "PreCommitHook",
+      "type": "text",
+      "text": "Pre-commit Hook\nReject reserved files",
+      "x": 476,
+      "y": 677,
+      "width": 150,
+      "height": 60,
+      "color": "#e74c3c",
+      "pv": {
+        "nodeType": "policy",
+        "description": "Git hook enforcement"
+      }
+    },
+    {
+      "id": "SQLite",
+      "type": "text",
+      "text": "SQLite + FTS5\nMetadata, search index\nWAL mode",
+      "x": 270,
+      "y": 547,
+      "width": 150,
+      "height": 80,
+      "color": "#27ae60",
+      "pv": {
+        "nodeType": "storage",
+        "description": "Fast queries and full-text search"
+      }
+    },
+    {
+      "id": "GitArchive",
+      "type": "text",
+      "text": "Git Archive\nMarkdown files\nHuman-auditable",
+      "x": 270,
+      "y": 703,
+      "width": 150,
+      "height": 80,
+      "color": "#27ae60",
+      "pv": {
+        "nodeType": "storage",
+        "description": "Persistent file storage"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "agentA_register",
+      "fromNode": "AgentA",
+      "toNode": "register_agent",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "agentA_send",
+      "fromNode": "AgentA",
+      "toNode": "send_message",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "agentB_fetch",
+      "fromNode": "AgentB",
+      "toNode": "fetch_inbox",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "agentB_ack",
+      "fromNode": "AgentB",
+      "toNode": "acknowledge",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "agentA_reserve",
+      "fromNode": "AgentA",
+      "toNode": "reserve_files",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "agentA_release",
+      "fromNode": "AgentA",
+      "toNode": "release_files",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "agentB_request",
+      "fromNode": "AgentB",
+      "toNode": "request_contact",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "agentC_respond",
+      "fromNode": "AgentC",
+      "toNode": "respond_contact",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "calls",
+      "color": "#9b59b6",
+      "pv": {
+        "edgeType": "calls"
+      }
+    },
+    {
+      "id": "register_to_agent",
+      "fromNode": "register_agent",
+      "toNode": "Agent",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "creates",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "send_to_message",
+      "fromNode": "send_message",
+      "toNode": "Message",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "creates",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "reserve_to_reservation",
+      "fromNode": "reserve_files",
+      "toNode": "FileReservation",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "creates",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "request_to_link",
+      "fromNode": "request_contact",
+      "toNode": "AgentLink",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "creates",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "respond_to_link",
+      "fromNode": "respond_contact",
+      "toNode": "AgentLink",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "updates",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "fetch_reads_message",
+      "fromNode": "fetch_inbox",
+      "toNode": "Message",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "reads",
+      "color": "#f39c12",
+      "pv": {
+        "edgeType": "reads"
+      }
+    },
+    {
+      "id": "link_to_policy",
+      "fromNode": "AgentLink",
+      "toNode": "ContactPolicy",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "governed by",
+      "color": "#e74c3c",
+      "pv": {
+        "edgeType": "enforces"
+      }
+    },
+    {
+      "id": "reservation_to_lock",
+      "fromNode": "FileReservation",
+      "toNode": "ExclusiveLock",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "when exclusive",
+      "color": "#e74c3c",
+      "pv": {
+        "edgeType": "enforces"
+      }
+    },
+    {
+      "id": "lock_to_hook",
+      "fromNode": "ExclusiveLock",
+      "toNode": "PreCommitHook",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "enforced by",
+      "color": "#e74c3c",
+      "pv": {
+        "edgeType": "enforces"
+      }
+    },
+    {
+      "id": "agent_to_sqlite",
+      "fromNode": "Agent",
+      "toNode": "SQLite",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "stored in",
+      "color": "#27ae60",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "message_to_sqlite",
+      "fromNode": "Message",
+      "toNode": "SQLite",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "indexed in",
+      "color": "#27ae60",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "sqlite_to_git",
+      "fromNode": "SQLite",
+      "toNode": "GitArchive",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "label": "synced to",
+      "color": "#27ae60",
+      "pv": {
+        "edgeType": "produces"
+      }
+    },
+    {
+      "id": "edge-FileReservation-SQLite-1767372548328",
+      "fromNode": "FileReservation",
+      "toNode": "SQLite",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "pv": {
+        "edgeType": "produces"
+      }
+    }
+  ]
+}

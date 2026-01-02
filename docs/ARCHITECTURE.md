@@ -86,11 +86,13 @@ interface RunResult {
 
 **Implementations:**
 
-| Adapter | Environment | Technology |
-|---------|-------------|------------|
-| `BetterSqlite3Adapter` | Node.js | better-sqlite3 |
-| `SqlJsAdapter` | Browser | sql.js (WASM) |
-| `InMemoryDatabaseAdapter` | Test | Map-based mock |
+| Adapter | Environment | Technology | Status |
+|---------|-------------|------------|--------|
+| `SqlJsDatabaseAdapter` | Test/Browser | sql.js (WASM) | ✅ Implemented |
+| `InMemoryDatabaseAdapter` | Test | Map-based mock | ✅ Implemented (limited SQL) |
+| `BetterSqlite3Adapter` | Node.js | better-sqlite3 | 🔲 Planned |
+
+> **Note:** `SqlJsDatabaseAdapter` is the recommended adapter for testing as it provides full SQL support including complex queries with OR conditions.
 
 ---
 
@@ -125,11 +127,11 @@ export interface StorageAdapter {
 
 **Implementations:**
 
-| Adapter | Environment | Technology |
-|---------|-------------|------------|
-| `NodeStorageAdapter` | Node.js | fs/promises + simple-git |
-| `IndexedDBStorageAdapter` | Browser | IndexedDB |
-| `InMemoryStorageAdapter` | Test | Map-based mock |
+| Adapter | Environment | Technology | Status |
+|---------|-------------|------------|--------|
+| `IdbStorageAdapter` | Browser | IndexedDB (via idb) | ✅ Implemented |
+| `InMemoryStorageAdapter` | Test | Map-based mock | ✅ Implemented |
+| `NodeStorageAdapter` | Node.js | fs/promises + simple-git | 🔲 Planned |
 
 ---
 
@@ -164,11 +166,11 @@ interface LockHandle {
 
 **Implementations:**
 
-| Adapter | Environment | Technology |
-|---------|-------------|------------|
-| `ProperLockfileAdapter` | Node.js | proper-lockfile |
-| `NavigatorLocksAdapter` | Browser | Web Locks API |
-| `NoOpLockAdapter` | Test | Always succeeds |
+| Adapter | Environment | Technology | Status |
+|---------|-------------|------------|--------|
+| `NoOpLockAdapter` | Test | Always succeeds | ✅ Implemented |
+| `ProperLockfileAdapter` | Node.js | proper-lockfile | 🔲 Planned |
+| `NavigatorLocksAdapter` | Browser | Web Locks API | 🔲 Planned |
 
 ---
 
@@ -195,11 +197,11 @@ interface GlobOptions {
 
 **Implementations:**
 
-| Adapter | Environment | Technology |
-|---------|-------------|------------|
-| `FastGlobAdapter` | Node.js | fast-glob |
-| `MicromatchAdapter` | Browser | micromatch |
-| `SimpleGlobAdapter` | Test | Basic pattern matching |
+| Adapter | Environment | Technology | Status |
+|---------|-------------|------------|--------|
+| `MicromatchGlobAdapter` | Browser | micromatch | ✅ Implemented |
+| `SimpleGlobAdapter` | Test | Basic pattern matching | ✅ Implemented |
+| `FastGlobAdapter` | Node.js | fast-glob | 🔲 Planned |
 
 ---
 
@@ -213,67 +215,58 @@ agent-mail-core/
 │   │   │   ├── database.ts          # DatabaseAdapter
 │   │   │   ├── storage.ts           # StorageAdapter
 │   │   │   ├── lock.ts              # LockAdapter
-│   │   │   ├── glob.ts              # GlobAdapter
-│   │   │   └── index.ts             # Re-exports
+│   │   │   └── glob.ts              # GlobAdapter
 │   │   │
 │   │   ├── models/                  # Domain entities
 │   │   │   ├── project.ts           # Project model
 │   │   │   ├── agent.ts             # Agent model
 │   │   │   ├── message.ts           # Message model
+│   │   │   ├── message-recipient.ts # Message delivery tracking
 │   │   │   ├── file-reservation.ts  # FileReservation model
-│   │   │   ├── agent-link.ts        # AgentLink model
-│   │   │   └── index.ts
+│   │   │   └── agent-link.ts        # AgentLink model (contacts)
 │   │   │
 │   │   ├── operations/              # Business logic
 │   │   │   ├── projects.ts          # Project operations
 │   │   │   ├── agents.ts            # Agent operations
 │   │   │   ├── messages.ts          # Message operations
 │   │   │   ├── reservations.ts      # File reservation ops
-│   │   │   ├── contacts.ts          # Contact management
-│   │   │   └── index.ts
+│   │   │   └── links.ts             # Contact/link management
 │   │   │
 │   │   ├── types/                   # Shared type definitions
-│   │   │   ├── common.ts
-│   │   │   ├── config.ts
-│   │   │   └── index.ts
+│   │   │   ├── enums.ts             # ImportanceLevel, ContactPolicy, etc.
+│   │   │   └── config.ts            # AgentMailConfig
 │   │   │
-│   │   └── validation/              # Input validation
-│   │       ├── agent-name.ts
-│   │       ├── patterns.ts
-│   │       └── index.ts
-│   │
-│   ├── node-adapters/               # Node.js implementations
-│   │   ├── BetterSqlite3Adapter.ts
-│   │   ├── NodeStorageAdapter.ts
-│   │   ├── ProperLockfileAdapter.ts
-│   │   ├── FastGlobAdapter.ts
-│   │   └── index.ts
+│   │   ├── validation/              # Input validation
+│   │   │   ├── agent-name.ts        # Name generation/validation
+│   │   │   └── slugify.ts           # Slug utilities
+│   │   │
+│   │   ├── schema.ts                # SQL schema definitions
+│   │   └── AgentMailCore.ts         # Main entry class
 │   │
 │   ├── browser-adapters/            # Browser implementations
-│   │   ├── SqlJsAdapter.ts
-│   │   ├── IndexedDBStorageAdapter.ts
-│   │   ├── NavigatorLocksAdapter.ts
-│   │   ├── MicromatchAdapter.ts
-│   │   └── index.ts
+│   │   ├── IdbStorageAdapter.ts     # IndexedDB storage ✅
+│   │   └── MicromatchGlobAdapter.ts # Glob matching ✅
 │   │
 │   ├── test-adapters/               # Test implementations
-│   │   ├── InMemoryDatabaseAdapter.ts
-│   │   ├── InMemoryStorageAdapter.ts
-│   │   ├── NoOpLockAdapter.ts
-│   │   ├── SimpleGlobAdapter.ts
-│   │   └── index.ts
+│   │   ├── SqlJsDatabaseAdapter.ts  # sql.js WASM database ✅
+│   │   ├── InMemoryDatabaseAdapter.ts # Map-based mock ✅
+│   │   ├── InMemoryStorageAdapter.ts  # Map-based storage ✅
+│   │   ├── NoOpLockAdapter.ts       # Always succeeds ✅
+│   │   └── SimpleGlobAdapter.ts     # Basic patterns ✅
 │   │
-│   ├── index.ts                     # Universal exports
-│   ├── node.ts                      # Node.js entry point
-│   └── browser.ts                   # Browser entry point
+│   └── index.ts                     # Universal exports
 │
 ├── docs/
 │   ├── LIBRARY_SPECIFICATION.md     # Full library spec
 │   └── ARCHITECTURE.md              # This file
 │
 └── tests/
-    └── ...
+    ├── core/                        # Core operation tests
+    ├── browser-adapters/            # Browser adapter tests
+    └── integration/                 # End-to-end tests
 ```
+
+> **Note:** Node.js adapters (`node-adapters/`) are planned but not yet implemented. The current implementation focuses on browser-first with test adapters.
 
 ---
 
@@ -314,9 +307,78 @@ export class AgentMailCore {
 
 ## Usage Examples
 
-### Node.js
+### Testing (Recommended)
+
+Use the convenience factory for quick test setup:
 
 ```typescript
+import { createTestCore } from 'agent-mail-core';
+
+const core = createTestCore();
+await core.initialize();
+
+// Create a project and agent
+const project = await core.ensureProject('my-project');
+const agent = await core.registerAgent(project.id);
+
+// Send a message
+await core.sendMessage({
+  senderId: agent.id,
+  recipients: [{ agentId: otherAgent.id, kind: 'to' }],
+  subject: 'Hello',
+  body: 'World'
+});
+```
+
+Or construct manually with full control:
+
+```typescript
+import {
+  AgentMailCore,
+  SqlJsDatabaseAdapter,
+  InMemoryStorageAdapter,
+  NoOpLockAdapter,
+  SimpleGlobAdapter
+} from 'agent-mail-core';
+
+const core = new AgentMailCore({
+  database: new SqlJsDatabaseAdapter(),
+  storage: new InMemoryStorageAdapter(),
+  lock: new NoOpLockAdapter(),
+  glob: new SimpleGlobAdapter()
+});
+
+await core.initialize();
+```
+
+### Browser
+
+```typescript
+import {
+  AgentMailCore,
+  SqlJsDatabaseAdapter,
+  IdbStorageAdapter,
+  NoOpLockAdapter,
+  MicromatchGlobAdapter
+} from 'agent-mail-core';
+
+const storage = new IdbStorageAdapter('agent-mail');
+await storage.initialize();
+
+const core = new AgentMailCore({
+  database: new SqlJsDatabaseAdapter(),
+  storage: storage,
+  lock: new NoOpLockAdapter(),
+  glob: new MicromatchGlobAdapter(storage)
+});
+
+await core.initialize();
+```
+
+### Node.js (Planned)
+
+```typescript
+// Future implementation - not yet available
 import {
   AgentMailCore,
   BetterSqlite3Adapter,
@@ -335,49 +397,6 @@ const core = new AgentMailCore({
 await core.initialize();
 ```
 
-### Browser
-
-```typescript
-import {
-  AgentMailCore,
-  SqlJsAdapter,
-  IndexedDBStorageAdapter,
-  NavigatorLocksAdapter,
-  MicromatchAdapter
-} from 'agent-mail-core/browser';
-
-const core = new AgentMailCore({
-  database: new SqlJsAdapter(),
-  storage: new IndexedDBStorageAdapter({ dbName: 'agent-mail' }),
-  lock: new NavigatorLocksAdapter(),
-  glob: new MicromatchAdapter()
-});
-
-await core.initialize();
-```
-
-### Testing
-
-```typescript
-import {
-  AgentMailCore,
-  InMemoryDatabaseAdapter,
-  InMemoryStorageAdapter,
-  NoOpLockAdapter,
-  SimpleGlobAdapter
-} from 'agent-mail-core';
-
-const core = new AgentMailCore({
-  database: new InMemoryDatabaseAdapter(),
-  storage: new InMemoryStorageAdapter(),
-  lock: new NoOpLockAdapter(),
-  glob: new SimpleGlobAdapter()
-});
-
-await core.initialize();
-// Run tests with in-memory state
-```
-
 ---
 
 ## Benefits
@@ -390,6 +409,20 @@ await core.initialize();
 | **Loose coupling** | Services depend on abstractions, not implementations |
 | **Tree-shakeable** | Separate entry points allow dead code elimination |
 | **Clear contracts** | Interfaces document exactly what adapters must provide |
+
+---
+
+## Implementation Status
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Core Abstractions | ✅ Complete | All interfaces defined |
+| Domain Models | ✅ Complete | Project, Agent, Message, FileReservation, AgentLink |
+| Operations | ✅ Complete | Projects, Agents, Messages, Reservations, Links |
+| Contact Policies | ✅ Complete | open, auto, contacts_only, block_all |
+| Test Adapters | ✅ Complete | SqlJsDatabaseAdapter, InMemoryStorageAdapter, etc. |
+| Browser Adapters | ✅ Complete | IdbStorageAdapter, MicromatchGlobAdapter |
+| Node.js Adapters | 🔲 Planned | BetterSqlite3, NodeStorage, etc. |
 
 ---
 
